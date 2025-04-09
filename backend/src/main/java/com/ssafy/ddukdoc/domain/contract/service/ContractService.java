@@ -23,6 +23,7 @@ import com.ssafy.ddukdoc.domain.user.entity.User;
 import com.ssafy.ddukdoc.domain.user.entity.UserDocRole;
 import com.ssafy.ddukdoc.domain.user.repository.UserDocRoleRepository;
 import com.ssafy.ddukdoc.domain.user.repository.UserRepository;
+import com.ssafy.ddukdoc.global.common.constants.UserType;
 import com.ssafy.ddukdoc.global.common.util.MultipartFileUtils;
 import com.ssafy.ddukdoc.global.common.util.S3Util;
 import com.ssafy.ddukdoc.global.common.util.blockchain.BlockchainUtil;
@@ -260,7 +261,11 @@ public class ContractService {
         String docName = (String) result.get("docName");
 
         // 7. 문서 해시 생성 및 블록체인 저장
-        blockchainUtil.saveDocumentInBlockchain(pdfData, TemplateCode.fromString(document.getTemplate().getCode()), docName);
+        Boolean isAdmin = userRepository.findById(userId)
+                .map(userType -> UserType.ADMIN.equals(userType.getUserType()))
+                .orElse(false);
+
+        blockchainUtil.saveDocumentInBlockchain(pdfData, TemplateCode.fromString(document.getTemplate().getCode()), docName, isAdmin);
 
         // 8. 암호화된 PDF S3 저장
         String pdfPath = saveEncryptedPdf(pdfData, document);

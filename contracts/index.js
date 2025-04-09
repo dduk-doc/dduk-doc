@@ -9,7 +9,7 @@ app.use(express.json());
 const web3 = new Web3(process.env.INFURA_URL);
 const contract = new web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS);
 
-// 계정 확인 함수....
+// 계정 확인 함수
 async function checkAccounts() {
   try {
     // 프라이빗 키로부터 계정 주소 복구
@@ -34,7 +34,7 @@ async function checkAccounts() {
 }
 
 // 🔐 개인 키 서명 전송
-async function sendTx(method) {
+async function sendTx(method, isAdmin) {
   try {
     // 계정 확인
     const account = await checkAccounts();
@@ -49,9 +49,18 @@ async function sendTx(method) {
     console.log("Account balance:", web3.utils.fromWei(balance, 'ether'), "ETH");
     
     // 3. 현재 가스 가격 가져오기
-    const gasPrice = await web3.eth.getGasPrice();
+    let gasPrice = await web3.eth.getGasPrice();
     console.log("Gas price:", web3.utils.fromWei(gasPrice, 'gwei'), "Gwei");
     
+    // isAdmin에 따라 가스 가격 조정
+    if (isAdmin === true) {
+      // 관리자는 가스 가격을 3배로 설정 (빠른 처리를 위해)
+      gasPrice = (BigInt(gasPrice) * BigInt(3)).toString();
+      console.log("Admin gas price (3x):", web3.utils.fromWei(gasPrice, 'gwei'), "Gwei");
+    } else {
+      console.log("Standard gas price used");
+    }
+
     // 가스 비용 계산
     const gasCost = BigInt(gasEstimate) * BigInt(gasPrice);
     console.log("Estimated gas cost:", web3.utils.fromWei(gasCost.toString(), 'ether'), "ETH");
@@ -88,13 +97,13 @@ async function sendTx(method) {
 // 문서 등록 - 원본 시스템과 호환되는 PUT 엔드포인트
 app.put("/blockchain/tokens/:contractAddress/documents", async (req, res) => {
   try {
-    const { requestor, name, docUri, docHash, signature } = req.body;
+    const { requestor, name, docUri, docHash, signature ,isAdmin} = req.body;
     const contractAddress = req.params.contractAddress;
     
     console.log("PUT Request:", req.body);
     console.log("Contract address from URL:", contractAddress);
     console.log("Contract address from ENV:", process.env.CONTRACT_ADDRESS);
-    
+    console.log("Is Admin request:", isAdmin);
     // 요청된 컨트랙트 주소와 환경 변수의 컨트랙트 주소 비교
     if (contractAddress.toLowerCase() !== process.env.CONTRACT_ADDRESS.toLowerCase()) {
       return res.status(400).json({ 
@@ -104,7 +113,7 @@ app.put("/blockchain/tokens/:contractAddress/documents", async (req, res) => {
     }
     
     // 문서 등록
-    const receipt = await sendTx(contract.methods.registerDocument(name, docHash, docUri || ""));
+    const receipt = await sendTx(contract.methods.registerDocument(name, docHash, docUri || ""), isAdmin === true);
     
     // BigInt 값을 문자열로 변환
     const serializedReceipt = JSON.parse(JSON.stringify(receipt, (key, value) =>

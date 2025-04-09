@@ -19,6 +19,7 @@ import com.ssafy.ddukdoc.domain.user.entity.User;
 import com.ssafy.ddukdoc.domain.user.entity.UserDocRole;
 import com.ssafy.ddukdoc.domain.user.repository.UserDocRoleRepository;
 import com.ssafy.ddukdoc.domain.user.repository.UserRepository;
+import com.ssafy.ddukdoc.global.common.constants.UserType;
 import com.ssafy.ddukdoc.global.common.util.MultipartFileUtils;
 import com.ssafy.ddukdoc.global.common.util.S3Util;
 import com.ssafy.ddukdoc.global.common.util.blockchain.BlockchainUtil;
@@ -83,6 +84,9 @@ public class SsafyContractService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.INVALID_USER_ID));
 
+        Boolean isAdmin = userRepository.findById(userId)
+                .map(userType -> UserType.ADMIN.equals(userType.getUserType()))
+                .orElse(false);
         // 템플릿 조회
         Template template = templateRepository.findByCode(templateCode.name())
                 .orElseThrow(() -> new CustomException(ErrorCode.TEMPLATE_NOT_FOUND, "templateCode", templateCode.name()));
@@ -101,15 +105,15 @@ public class SsafyContractService {
 
         switch (templateCode){
             case S5:  //서명없이 저장
-                return saveDocumentNoSignature(document,saveDocument,requestDto,templateCode);
+                return saveDocumentNoSignature(document,saveDocument,requestDto,templateCode,isAdmin);
             case S2: case S3:  //서명 + 증빙서류 필요
                 return saveDocumentWithSignatureAndExtra(document,saveDocument,user, requestDto, templateCode,signatureFile,proofDocuments);
             default:  // 서명만 필요
-                return saveDocumentWithSignature(document,saveDocument,user, requestDto, templateCode,signatureFile);
+                return saveDocumentWithSignature(document,saveDocument,user, requestDto, templateCode,signatureFile,isAdmin);
         }
     }
 
-    private Integer saveDocumentNoSignature(Document document, Document saveDocument, DocumentSaveRequestDto requestDto, TemplateCode templateCode) {
+    private Integer saveDocumentNoSignature(Document document, Document saveDocument, DocumentSaveRequestDto requestDto, TemplateCode templateCode, Boolean isAdmin) {
         // 문서 pdf 생성
         Map<String,Object> result = pdfGeneratorUtil.generatePdfNoData(
                 templateCode,
@@ -121,7 +125,7 @@ public class SsafyContractService {
         String docName = (String)result.get("docName");
 
         // 문서 해시 생성 및 블록체인 저장
-        blockchainUtil.saveDocumentInBlockchain(pdfData,TemplateCode.fromString(document.getTemplate().getCode()),docName);
+        blockchainUtil.saveDocumentInBlockchain(pdfData,TemplateCode.fromString(document.getTemplate().getCode()),docName,isAdmin);
 
         // 암호화된 PDF S3 저장
         String pdfPath = saveEncryptedPdf(pdfData, document);
@@ -135,7 +139,7 @@ public class SsafyContractService {
         return 1;
     }
 
-    private Integer saveDocumentWithSignature(Document document, Document saveDocument, User user, DocumentSaveRequestDto requestDto, TemplateCode templateCode,MultipartFile signatureFile) {
+    private Integer saveDocumentWithSignature(Document document, Document saveDocument, User user, DocumentSaveRequestDto requestDto, TemplateCode templateCode,MultipartFile signatureFile, Boolean isAdmin) {
         try{
             //서명 파일 저장
             saveSignature(document,user.getId(),signatureFile);
@@ -158,7 +162,7 @@ public class SsafyContractService {
             String docName = (String)result.get("docName");
 
             // 문서 해시 생성 및 블록체인 저장
-            blockchainUtil.saveDocumentInBlockchain(pdfData,TemplateCode.fromString(document.getTemplate().getCode()),docName);
+            blockchainUtil.saveDocumentInBlockchain(pdfData,TemplateCode.fromString(document.getTemplate().getCode()),docName,isAdmin);
 
             // 암호화된 PDF S3 저장
             String pdfPath = saveEncryptedPdf(pdfData, document);

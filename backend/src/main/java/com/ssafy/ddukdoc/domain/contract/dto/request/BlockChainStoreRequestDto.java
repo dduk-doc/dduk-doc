@@ -24,4 +24,7 @@ public class BlockChainStoreRequestDto {
     // 서명 (요청 데이터에 대한 서명)
     private String signature;
 
+    // 관리자 여부
+    private Boolean isAdmin;
+
 }

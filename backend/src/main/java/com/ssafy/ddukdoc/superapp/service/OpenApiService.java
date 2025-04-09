@@ -94,7 +94,7 @@ public class OpenApiService {
         MediaType mediaType = determineMediaType(filename);
         try {
             // 블록체인에 해시값과 docName 저장
-            blockchainUtil.saveDocumentInBlockchain(pdfData,null, docName);
+            blockchainUtil.saveDocumentInBlockchain(pdfData,null, docName,false);
         } catch (Exception e) {
             log.error("블록체인 저장 오류: {}", e.getMessage(), e);
             throw new CustomException(ErrorCode.BLOCKCHAIN_SAVE_ERROR, "블록체인에 저장 중 오류가 발생했습니다", e.getMessage());

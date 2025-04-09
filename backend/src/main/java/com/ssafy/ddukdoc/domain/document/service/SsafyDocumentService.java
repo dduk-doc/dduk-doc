@@ -14,7 +14,9 @@ import com.ssafy.ddukdoc.domain.document.entity.DocumentFieldValue;
 import com.ssafy.ddukdoc.domain.document.repository.DocumentFieldValueRepository;
 import com.ssafy.ddukdoc.domain.document.repository.DocumentRepository;
 import com.ssafy.ddukdoc.domain.template.entity.TemplateCode;
+import com.ssafy.ddukdoc.domain.user.repository.UserRepository;
 import com.ssafy.ddukdoc.global.common.CustomPage;
+import com.ssafy.ddukdoc.global.common.constants.UserType;
 import com.ssafy.ddukdoc.global.common.util.MultipartFileUtils;
 import com.ssafy.ddukdoc.global.common.util.S3Util;
 import com.ssafy.ddukdoc.global.common.util.blockchain.BlockchainUtil;
@@ -51,6 +53,7 @@ public class SsafyDocumentService {
     private final PdfGeneratorUtil pdfGeneratorUtil;
     private final BlockchainUtil blockchainUtil;
     private final EncryptionStrategy encryptionStrategy;
+    private final UserRepository userRepository;
 
     public CustomPage<SsafyDocumentResponseDto> getDocsList(Integer userId, SsafyDocumentSearchRequestDto ssafyDocumentSearchRequestDto, Pageable pageable) {
         Page<Document> documentList = documentRepository.findSsafyDocumentList(
@@ -173,7 +176,11 @@ public class SsafyDocumentService {
         String docName = (String)result.get("docName");
 
         // 5. 문서 해시 생성 및 블록체인 저장
-        blockchainUtil.saveDocumentInBlockchain(pdfData,TemplateCode.fromString(document.getTemplate().getCode()),docName);
+        Boolean isAdmin = userRepository.findById(userId)
+                .map(userType -> UserType.ADMIN.equals(userType.getUserType()))
+                .orElse(false);
+
+        blockchainUtil.saveDocumentInBlockchain(pdfData,TemplateCode.fromString(document.getTemplate().getCode()),docName,isAdmin);
 
         // 6. 암호화된 PDF S3 저장
         String newPdfPath = saveEncryptedPdf(pdfData, document);

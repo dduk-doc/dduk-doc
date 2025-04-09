@@ -166,7 +166,7 @@ public class BlockchainUtil {
         return null;
     }
 
-    public void saveDocumentInBlockchain(byte[] pdfData, TemplateCode templateCode,String docName) {
+    public void saveDocumentInBlockchain(byte[] pdfData, TemplateCode templateCode,String docName, Boolean isAdmin) {
         try {
             if (pdfData == null || pdfData.length == 0) {
                 throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, "pdfData", "빈 데이터");
@@ -175,10 +175,11 @@ public class BlockchainUtil {
             if (docName == null || docName.isEmpty()) {
                 throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, "docName", "문서명 누락");
             }
-            log.debug("saveDocumentInBlockchain 시작 - 데이터: {}, 템플릿: {}, 문서명: {}",
+            log.debug("saveDocumentInBlockchain 시작 - 데이터: {}, 템플릿: {}, 문서명: {}, 관리자 여부 : {}",
                     pdfData != null ? pdfData.length : "null",
                     templateCode,
-                    docName);
+                    docName,
+                    isAdmin);
             String hash = hashUtil.generateSHA256Hash(pdfData);
             String docHashWithPrefix = "0x" + hash; // 0x 접두사 추가
             log.debug("해시 생성 완료: {}", docHashWithPrefix);
@@ -192,7 +193,7 @@ public class BlockchainUtil {
             log.debug("서명 생성 완료: {}", signature);
 
             // 블록체인 객체 생성
-            BlockChainStoreRequestDto storeData = new BlockChainStoreRequestDto(requestor, docName, "", docHashWithPrefix, signature);
+            BlockChainStoreRequestDto storeData = new BlockChainStoreRequestDto(requestor, docName, "", docHashWithPrefix, signature,isAdmin);
             log.debug("블록체인 요청 데이터 생성 완료: {}", storeData);
 
             // 블록체인 API 호출

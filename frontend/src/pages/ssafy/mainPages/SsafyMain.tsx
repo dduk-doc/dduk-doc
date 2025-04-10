@@ -64,17 +64,6 @@ export const SsafyMain = () => {
           {/* 하단 두 버튼을 위한 flex row */}
           <div className="flex w-full gap-6">
             {/* 블록 2 - 더 길쭉한 버튼 */}
-            <Link to="/ssafy/mypage" className="w-1/2">
-              <div className="flex h-44 w-full items-center justify-center rounded-lg bg-white">
-                <SmallButton
-                  imageSrc={SsafyLoginMainSVG.ssafy_myhome_icon}
-                  subtitle="나의 싸피 문서함"
-                  title="내 문서"
-                />
-              </div>
-            </Link>
-
-            {/* 블록 3 - 더 길쭉한 버튼 */}
             <div
               onClick={saveRoute}
               className="flex h-44 w-1/2 items-center justify-center rounded-lg bg-white"
@@ -85,6 +74,16 @@ export const SsafyMain = () => {
                 title="위변조 검사"
               />
             </div>
+            {/* 블록 3 - 더 길쭉한 버튼 */}
+            <Link to="/ssafy/mypage" className="w-1/2">
+              <div className="flex h-44 w-full items-center justify-center rounded-lg bg-white">
+                <SmallButton
+                  imageSrc={SsafyLoginMainSVG.ssafy_myhome_icon}
+                  subtitle="나의 싸피 문서함"
+                  title="내 문서"
+                />
+              </div>
+            </Link>
           </div>
         </div>
       </div>

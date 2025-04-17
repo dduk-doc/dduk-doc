@@ -3,7 +3,7 @@
 
 <br/>
 
-<img src="https://github.com/user-attachments/assets/d3b4ba8e-2996-43b3-b168-4d08ab180f5b" alt="na lab" align="right" height="100" />
+<img src="https://github.com/user-attachments/assets/d3b4ba8e-2996-43b3-b168-4d08ab180f5b" align="right" height="100" />
 
 <br/>
 <br/>
@@ -63,13 +63,13 @@
 ### 👨‍💻 Frontend Engineers
 | Profile | Name | Role & Tasks |
 |:---:|:---:|:---|
-| [사진 링크] | 김소운 | • 예시)UI/UX 디자인 구현<br>• 문서 에디터 개발<br>• 블록체인 연동 프론트엔드 구현 |
-| [사진 링크] | 장욱 | • 1번 한일<br>• 2번 한일<br>• 3번 한일 |
-| [사진 링크] | 홍석진 | • 1번 한일<br>• 2번 한일<br>• 3번 한일 |
+| <a href="https://github.com/happysloth0908"><img src="https://avatars.githubusercontent.com/u/176969526?v=4" height="100" href="" /></a> | 김소운 | • 예시)UI/UX 디자인 구현<br>• 문서 에디터 개발<br>• 블록체인 연동 프론트엔드 구현 |
+| <a href="https://github.com/guite95"><img src="https://avatars.githubusercontent.com/u/172250086?v=4" height="100" /></a> | 장욱 | • 1번 한일<br>• 2번 한일<br>• 3번 한일 |
+| <a href="https://github.com/seokbangguri"><img src="https://avatars.githubusercontent.com/u/34706061?v=4" height="100" /></a> | 홍석진 | • 1번 한일<br>• 2번 한일<br>• 3번 한일 |
 
 ### ⚙️ Backend Engineers
 | Profile | Name | Role & Tasks |
 |:---:|:---:|:---|
-| [사진 링크] | 신지혜 | • 1번 한일<br>• 2번 한일<br>• 3번 한일 |
-| [사진 링크] | 심규빈 | • 1번 한일<br>• 2번 한일<br>• 3번 한일 |
-| [사진 링크] | 전아현 | • 1번 한일<br>• 2번 한일<br>• 3번 한일 |
+| <a href="https://github.com/singwisdom"><img src="https://avatars.githubusercontent.com/u/57509973?v=4" height="100" /></a> | 신지혜 | • 1번 한일<br>• 2번 한일<br>• 3번 한일 |
+| <a href="https://github.com/SIM-GYUBIN"><img src="https://avatars.githubusercontent.com/u/89975936?v=4" height="100" /></a> | 심규빈 | • INFRA 아키텍처 구축<br>• Backend 프로젝트 구조 정립<br>• Spring Security 기반 인증•인가 및 회원관리 API |
+| <a href="https://github.com/HANoeJ"><img src="https://avatars.githubusercontent.com/u/63058756?v=4" height="100" /></a> | 전아현 | • 1번 한일<br>• 2번 한일<br>• 3번 한일 |

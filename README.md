@@ -1,8 +1,9 @@
-![1](/uploads/8f536ce1d9e50bcdb2a972da9b122af6/1.jpg)
+![image](https://github.com/user-attachments/assets/6f4d5bc8-ddf6-4b2c-a7de-ab251e4d806d)
+
 
 <br/>
 
-<img src="/uploads/44d42c41734fe370433c59be4f2d0918/icon512_rounded.png" alt="na lab" align="right" height="100" />
+<img src="https://github.com/user-attachments/assets/d3b4ba8e-2996-43b3-b168-4d08ab180f5b" alt="na lab" align="right" height="100" />
 
 <br/>
 <br/>
@@ -28,20 +29,22 @@
   <blockquote>
     <h3> 삼성청년SW아카데미 12기 특화프로젝트 우수상 수상작 🎉</h3>
   </blockquote>
+  
+![메인](https://github.com/user-attachments/assets/13f4ded6-1969-45d0-9286-055cadc3ceca)
+![주요3](https://github.com/user-attachments/assets/6b6e0815-ab58-42f1-b710-c6b732653953)
+![작성및저장](https://github.com/user-attachments/assets/e6f8f85c-d209-47c8-914a-9f7a052a344c)
+![증빙자료](https://github.com/user-attachments/assets/68c583e9-81d6-49b9-93f9-a285ba5c7836)
+![위변조검증](https://github.com/user-attachments/assets/b56bb52a-a3f0-43cb-8399-44207d6871ad)
+![공유하기](https://github.com/user-attachments/assets/82fcaae6-6263-4328-9cc0-5d19c06fb8d2)
 
-![메인](/uploads/c5ff893ef9f8f4568d1419f028af853a/4.jpg)
-![주요3](/uploads/454b365473fbb6929fa15dfb6c992972/6.jpg)
-![작성및저장](/uploads/6d81d54c0e85e983babf1e326d9ff28a/7.jpg)
-![증빙자료](/uploads/aa4b1be80635b70dae30ebad937e5ee6/8.jpg)
-![위변조검증](/uploads/ef3e7e73d381cd2dce5d9bd39e9dda8b/9.jpg)
-![공유하기](/uploads/e60baf3580aba5a1bef74f5787a76dc3/10.jpg)
 
 ## ⛓️ Security & Blockchain
-![봉투암호화-KMS](/uploads/b5faad82d4931969b71a7eeed04c2351/28.jpg)
-![블록체인](/uploads/6637c937189c7db0776d491012f79091/25.jpg)
+![봉투암호화-KMS](https://github.com/user-attachments/assets/07df8a3c-2834-45e9-83da-e707c150700a)
+![블록체인](https://github.com/user-attachments/assets/be266010-2c68-4666-a7bf-f50c99915886)
 
 ## 🧩 Architecture
-![Architecture](/uploads/d831ecf3090aa2c7c738de7b0ac7d997/20.jpg)
+![Architecture](https://github.com/user-attachments/assets/1fe0ae36-b020-4468-b042-5ca0ebbad219)
+
 
 - 운영 서버의 안정성을 위해 개발 환경과 운영 환경을 분리했습니다.
 
